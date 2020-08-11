@@ -1,0 +1,26 @@
+main: org.plugins.antidrop.AntiDropMain
+name: AntiDrop
+author: 7rory768
+version: 2.1.8
+description: Saves people from dropping certain items
+
+commands:
+  antidrop:
+    description: Main command
+    aliases: [ad, apd, antipickdrop]
+    
+permissions:
+  antidrop.use:
+    description: Permission to use antidrop
+    default: true
+  antidrop.toggle:
+    description: Permission to toggle antidrop
+    default: op
+  antidrop.deathprotection:
+    description: Permission for (drop false) items to not drop on death
+    default: true
+  antidrop.reload:
+    description: Permission to reload antidrop
+    default: op
+  
+      
