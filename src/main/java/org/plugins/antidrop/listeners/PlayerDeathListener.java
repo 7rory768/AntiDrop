@@ -10,6 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.plugins.antidrop.AntiDropMain;
 import org.plugins.antidrop.managers.AntiDropManager;
 import roryslibrary.configs.CustomConfig;
+import roryslibrary.util.ItemUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ public class PlayerDeathListener implements Listener {
 		
 		List<String> appliedItems = this.plugin.getConfig().getStringList("applied-items");
 		
-		if (view.getCursor() != null) {
+		if (ItemUtil.itemIsReal(view.getCursor())) {
 			ItemStack item = view.getCursor();
 			
 			boolean giveItemBack = false;
