@@ -1,5 +1,6 @@
 package org.plugins.antidrop.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,7 +36,7 @@ public class PlayerDeathListener implements Listener {
 		
 		List<String> appliedItems = this.plugin.getConfig().getStringList("applied-items");
 		
-		if (ItemUtil.itemIsReal(view.getCursor())) {
+		if (view.getCursor() != null && view.getCursor().getType() != Material.AIR) {
 			ItemStack item = view.getCursor();
 			
 			boolean giveItemBack = false;

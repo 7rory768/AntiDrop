@@ -3,6 +3,7 @@ name: AntiDrop
 author: 7rory768
 version: ${project.version}
 description: Saves people from dropping certain items
+api-version: 1.13
 
 commands:
   antidrop:
