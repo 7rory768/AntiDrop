@@ -29,7 +29,7 @@ public class AntiDropManager {
         this.itemUtil = itemUtil;
         this.playersConfig = playersConfig;
         this.refreshAntiDropItems();
-        AntiDropManager.DROP_DELAY = 1000L * Long.valueOf(plugin.getConfig().getInt("drop-delay"));
+        AntiDropManager.DROP_DELAY = 1000L * (long) plugin.getConfig().getInt("drop-delay");
         this.startDropConfirmationCleaner();
     }
 
@@ -67,6 +67,13 @@ public class AntiDropManager {
     }
 
     public boolean isSimilar(ItemStack item1, ItemStack item2) {
+        if ((item1 == null && item2 != null) || item1 != null && item2 == null) {
+            return false;
+        }
+
+        if (item1.hasItemMeta() != item2.hasItemMeta()) return false;
+
+
         ItemMeta itemMeta = item1.getItemMeta();
         ItemMeta item2Meta = item2.getItemMeta();
         if (item1.getType() == item2.getType() && item1.getDurability() == item2.getDurability() && itemMeta.hasDisplayName() == item2Meta.hasDisplayName() && itemMeta.hasLore() == item2Meta.hasLore() && itemMeta.hasEnchants() == item2Meta.hasEnchants()) {
