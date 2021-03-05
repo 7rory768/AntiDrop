@@ -29,7 +29,7 @@ public class AntiDropManager {
         this.itemUtil = itemUtil;
         this.playersConfig = playersConfig;
         this.refreshAntiDropItems();
-        AntiDropManager.DROP_DELAY = 1000L * Long.valueOf(plugin.getConfig().getInt("drop-delay"));
+        AntiDropManager.DROP_DELAY = 1000L * plugin.getConfig().getInt("drop-delay");
         this.startDropConfirmationCleaner();
     }
 
