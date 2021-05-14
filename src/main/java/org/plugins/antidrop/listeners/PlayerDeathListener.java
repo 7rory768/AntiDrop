@@ -11,7 +11,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.plugins.antidrop.AntiDropMain;
 import org.plugins.antidrop.managers.AntiDropManager;
 import roryslibrary.configs.CustomConfig;
-import roryslibrary.util.ItemUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +51,8 @@ public class PlayerDeathListener implements Listener {
 			}
 			
 			if (giveItemBack) {
+				view.setCursor(null);
+				
 				new BukkitRunnable() {
 					@Override
 					public void run() {
@@ -59,13 +60,10 @@ public class PlayerDeathListener implements Listener {
 						p.updateInventory();
 					}
 				}.runTaskLater(plugin, 5L);
-			} else {
-				p.getWorld().dropItem(p.getLocation(), item);
-				view.setCursor(null);
 			}
 		}
 		
-		if (!p.hasPermission("*") && p.hasPermission("-antidrop.deathprotection")) {
+		if (p.hasPermission("*") && p.hasPermission("-antidrop.deathprotection")) {
 			return;
 		}
 		
@@ -92,17 +90,17 @@ public class PlayerDeathListener implements Listener {
 			this.playersConfig.reloadConfig();
 			
 			final HashMap<Integer, ItemStack> finalItemsToGive = itemsToGive;
-			(new BukkitRunnable() {
+			new BukkitRunnable() {
 				
 				@Override
 				public void run() {
-					for (final Map.Entry<Integer, ItemStack> itemEntry : finalItemsToGive.entrySet()) {
+					for (final Map.Entry<Integer, ItemStack> itemEntry : finalItemsToGive.entrySet())
 						p.getInventory().setItem(itemEntry.getKey(), itemEntry.getValue());
-					}
+					
 					p.updateInventory();
 				}
 				
-			}).runTaskLater(this.plugin, 0L);
+			}.runTaskLater(this.plugin, 0L);
 		}
 	}
 }
