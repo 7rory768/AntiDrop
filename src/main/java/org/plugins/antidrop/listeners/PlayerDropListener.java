@@ -34,8 +34,10 @@ public class PlayerDropListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryClose(InventoryCloseEvent event) {
+		if (event.getPlayer().isDead()) return;
+
 		ItemStack item = event.getView().getCursor();
-		
+
 		if (event.getPlayer() instanceof Player) {
 			Player player =  (Player) event.getPlayer();
 			InventoryView view = event.getView();
@@ -74,6 +76,8 @@ public class PlayerDropListener implements Listener {
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onDropItem(PlayerDropItemEvent e) {
+		if (e.getPlayer().isDead()) return;
+
 		Player p = e.getPlayer();
 		ItemStack item = e.getItemDrop().getItemStack();
 		
