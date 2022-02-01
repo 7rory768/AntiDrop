@@ -34,13 +34,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.4</version>
+            <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.7rory768</groupId>
             <artifactId>Rorys-Library</artifactId>
-            <version>master-bfef674-1</version>
+            <version>master-3461fb5-1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
