@@ -56,8 +56,12 @@ public class PlayerDropListener implements Listener {
 					itemLeft.setAmount(amountLeft);
 					
 					for (ItemStack leftoverItem : event.getView().getBottomInventory().addItem(itemLeft).values()) {
-						for (ItemStack leftoverItem1 : event.getView().getTopInventory().addItem(leftoverItem).values()) {
-							player.getWorld().dropItem(player.getLocation(), leftoverItem1);
+						if (leftoverItem.getType().name().contains("SHULKER_BOX")) {
+							player.getWorld().dropItem(player.getLocation(), leftoverItem);
+						} else {
+							for (ItemStack leftoverItem1 : event.getView().getTopInventory().addItem(leftoverItem).values()) {
+								player.getWorld().dropItem(player.getLocation(), leftoverItem1);
+							}
 						}
 					}
 					
@@ -96,14 +100,28 @@ public class PlayerDropListener implements Listener {
 						return;
 					}
 				}
-				
-				e.getItemDrop().remove();
-				
-				for (ItemStack leftoverItem : view.getBottomInventory().addItem(item).values()) {
-					for (ItemStack leftoverItem1 : view.getTopInventory().addItem(leftoverItem).values()) {
-						view.setCursor(leftoverItem1);
+
+				boolean deleteDrop = true;
+				ItemStack dropItem = e.getItemDrop().getItemStack();
+
+				for (ItemStack leftoverItem : view.getBottomInventory().addItem(item).values())
+				{
+					if (leftoverItem.getType().name().contains("SHULKER_BOX"))
+					{
+						dropItem = leftoverItem;
+						deleteDrop = false;
+					} else
+					{
+						for (ItemStack leftoverItem1 : view.getTopInventory().addItem(leftoverItem).values())
+						{
+							dropItem = leftoverItem1;
+							deleteDrop = false;
+						}
 					}
 				}
+
+				e.getItemDrop().setItemStack(dropItem);
+				if (deleteDrop) e.getItemDrop().remove();
 				
 				new BukkitRunnable() {
 					@Override
